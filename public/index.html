@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sharefy</title>
+    <script
+      data-ad-client="ca-pub-1577490559474635"
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+    ></script>
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script> -->
+  </head>
+
+  <!-- <link rel="stylesheet" href="https://studio.aylias.me/schemes.css" /> -->
+  <link
+    id="css"
+    rel="stylesheet"
+    type="text/css"
+    href="style.css"
+    media="all"
+  />
+
+  <body>
+    <h1 id="welcome">Welcome back!</h1>
+
+    <!-- <br class="signin-br" />
+    <br class="signin-br" />
+
+    <label for="username">
+      Username:
+      <input type="text" name="username" id="username" />
+    </label>
+
+    <br class="signin-br" />
+
+    <label for="password">
+      Password:
+      <input type="password" name="password" id="password" />
+    </label>
+
+    <br class="signin-br" />
+    <br class="signin-br" />
+
+    <button onclick="signUpClick()" class="login" id="login">
+      <a href="javascript:void(0)" id="sisu-text">Sign In/Sign Up</a>
+    </button> -->
+
+    <h1 id="sharefy">Sharefy</h1>
+
+    <h1 id="url" href="/"></h1>
+    <br />
+    <br />
+    <button class="copy" onclick="copy()" id="copy">Copy</button>
+    <br />
+    <form
+      class="box"
+      method="post"
+      action="/upload"
+      enctype="multipart/form-data"
+      id="form"
+    >
+      <div class="box__input">
+        <label for="file">
+          <strong>Choose a file</strong>
+          <input class="file" type="file" name="uploaded" id="file" single />
+        </label>
+        <button class="submit" type="submit" id="submit">Upload</button>
+      </div>
+    </form>
+
+    <br />
+
+    <button onclick="pasteURL()" id="paste">
+      <a href="javascript:void(0)">Paste a URL</a>
+    </button>
+
+    <br />
+    <h1 id="or">or</h1>
+    <br />
+    <!-- <button id="tryas"><a href="/autosend.html">Try Autosend (Beta)</a></button> -->
+
+    <button class="copy" id="another"><a href="/">Do Another</a></button>
+
+    <br />
+    <br />
+    <br />
+
+    <form action="/dl" id="dl">
+      <label for="id">
+        Object ID:
+        <input class="file" type="text" name="id" id="ididid" />
+      </label>
+
+      <button class="submit" type="submit" id="download">Upload</button>
+    </form>
+    <br /><br />
+    <!-- <button onclick="download()">
+      <a href="javascript:void(0)" id="submit-button">Download File</a>
+    </button> -->
+    <!-- <br /> -->
+    <button onclick="preview()">
+      <a href="javascript:void(0)">Open</a>
+    </button>
+  </body>
+
+  <script>
+    const input = document.getElementById("file");
+
+    input.addEventListener("change", (event) => {
+      const target = event.target;
+      if (target.files && target.files[0]) {
+        const maxAllowedSize = 100 * 1024 * 1024;
+        if (target.files[0].size > maxAllowedSize) {
+          // Here you can ask your users to load correct file
+          alert("File is too large!");
+          target.value = "";
+        } else {
+          document.getElementById("submit").click();
+        }
+      }
+    });
+
+    const queryString = window.location.search.replace("?", "");
+    if (queryString != "") {
+      if (queryString == "undefined") {
+        document.getElementById("url").innerHTML =
+          "Too many files are being processed right now. Please try again later!";
+        document.getElementById("form").classList.add("copy");
+        document.getElementById("sharefy").classList.add("copy");
+      } else {
+        document.getElementById("url").innerHTML =
+          `Your Download ID is ${queryString}.` +
+          `<br>Give this to someone and they can download your file for the next 24 hours!`;
+        document.getElementById("another").classList.remove("copy");
+        // document.getElementById("copy").classList.remove("copy");
+        document.getElementById("form").classList.add("copy");
+        document.getElementById("sharefy").classList.add("copy");
+        document.getElementById("or").classList.add("copy");
+        document.getElementById("welcome").classList.add("copy");
+        document.getElementById("paste").classList.add("copy");
+        // document.getElementById("tryas").classList.add("copy");
+      }
+    }
+
+    function copy() {
+      function copyToClipboard(content) {
+        navigator.clipboard
+          .writeText(content)
+          .then(() => {
+            console.log("Text copied to clipboard...");
+          })
+          .catch((err) => {
+            console.log("Something went wrong", err);
+          });
+      }
+
+      const queryString = window.location.search.replace("?", "");
+      console.log(queryString);
+      if (queryString != "") {
+        const url = "https://sharefy.app/" + queryString;
+        copyToClipboard(url);
+      }
+    }
+
+    function download() {
+      // val = $("#ididid").val().toString();
+      // if (val.length != 4) {
+      //   alert("Please enter a valid code");
+      // } else {
+      $("#download").click();
+      // }
+    }
+
+    function preview() {
+      // val = $("#ididid").val().toString();
+      // if (val.length != 4) {
+      //   alert("Please enter a valid code");
+      // } else {
+      $("#dl").attr("action", "/preview");
+      $("#download").click();
+      // }
+    }
+  </script>
+
+  <script>
+    $(document).ready(() => {
+      $("#username").on("keypress", function (event) {
+        var regex = new RegExp("^[a-zA-Z0-9]+$");
+        var key = String.fromCharCode(
+          !event.charCode ? event.which : event.charCode
+        );
+        if (!regex.test(key)) {
+          event.preventDefault();
+
+          return false;
+        } else {
+          var username = $("#username").val() + key;
+
+          fetch("/isUsernameTaken?username=" + username)
+            .then((response) => response.json())
+            .then((data) => {
+              if (!data.taken) {
+                $("#sisu-text").html("Sign Up");
+              } else {
+                $("#sisu-text").html("Sign In");
+              }
+            });
+        }
+      });
+
+      $("#username").on("change", () => {
+        var username = $("#username").val();
+        console.log(username);
+
+        fetch("/isUsernameTaken?username=" + username)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+          });
+      });
+    });
+  </script>
+
+  <script>
+    function setCookie(name, value, days) {
+      var expires = "";
+      if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+        expires = "; expires=" + date.toUTCString();
+      }
+      document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
+    function getCookie(name) {
+      var nameEQ = name + "=";
+      var ca = document.cookie.split(";");
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == " ") c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+      }
+      return null;
+    }
+  </script>
+
+  <script>
+    function signUpClick() {
+      var username = $("#username").val();
+      var password = $("#password").val();
+
+      fetch("/isUsernameTaken?username=" + username)
+        .then((response) => response.json())
+        .then((data) => {
+          if (!data.taken) {
+            signUp(username, password);
+          } else {
+            signIn(username, password);
+          }
+        });
+    }
+
+    function signUp(username, password) {
+      if (confirm("Do you want to sign up as " + username)) {
+        fetch("/signUp?username=" + username + "&password=" + password)
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              alert("Successfully signed up!");
+              setCookie("username", username);
+              setCookie("password", password);
+              window.location.href = "/";
+            } else {
+              alert("Something went wrong!");
+            }
+          });
+      }
+    }
+
+    function signIn(username, password) {
+      fetch("/signIn?username=" + username + "&password=" + password)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            alert("Successfully signed in!");
+            window.location.href = "/";
+          } else {
+            alert("Something went wrong!");
+          }
+        });
+    }
+  </script>
+
+  <script>
+    $(document).ready(() => {
+      var username = getCookie("username");
+      var password = getCookie("password");
+
+      if (username && password) {
+        $("#username").parent().addClass("copy");
+        $("#password").parent().addClass("copy");
+        $("#login").addClass("copy");
+        $(".signin-br").addClass("copy");
+        $("#welcome").html("Welcome back, " + username);
+      }
+    });
+  </script>
+
+  <script>
+    function isValidURL(string) {
+      let url;
+
+      try {
+        url = new URL(string);
+      } catch (_) {
+        return false;
+      }
+
+      return url.protocol === "http:" || url.protocol === "https:";
+    }
+
+    function pasteURL() {
+      navigator.clipboard
+        .readText()
+        .then((text) => {
+          if (isValidURL(text)) {
+            window.location.href = "/shareURL?url=" + text;
+          } else {
+            alert("Please paste a valid URL");
+          }
+        })
+        .catch((err) => {
+          console.error("Failed to read clipboard contents: ", err);
+        });
+    }
+  </script>
+
+  <script>
+    $(document).ready(() => {
+      $("#ididid").on("keypress", function (event) {
+        var key = String.fromCharCode(
+          !event.charCode ? event.which : event.charCode
+        );
+        if (($("#ididid").val() + key).endsWith("U")) {
+          $("submit-button").html("Open URL");
+        } else {
+          $("submit-button").html("Download File");
+        }
+      });
+
+      $("#ididid").on("change", () => {
+        if ($("#ididid").val().endsWith("U")) {
+          $("submit-button").html("Open URL");
+        } else {
+          $("submit-button").html("Download File");
+        }
+      });
+    });
+  </script>
+
+  <!-- <style>
+    /* body {
+      background-image: var(--bg-gradient);
+      height: max(100%, 100vh);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-family: "Lato", sans-serif;
+      margin: 0;
+    }*/
+
+    button {
+      padding: 10px 15px;
+      background-color: #fff;
+      border-radius: 15px;
+      border-style: solid;
+      border-width: 1px;
+      box-shadow: 0 10px 10px 0 var(--shadow);
+      transition-duration: 200ms;
+      /* margin-bottom: -10px;*/
+    }
+
+    button a {
+      color: black;
+      text-decoration: none;
+      font-family: "Lato", sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    button:hover {
+      transform: scale(120%);
+    }
+
+    .copy {
+      display: none;
+    }
+
+    input[type="file"],
+    .submit {
+      display: none;
+    }
+
+    label {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      display: inline-block;
+      padding: 6px 12px;
+      cursor: pointer;
+      border-radius: 15px;
+      box-shadow: 0 10px 10px 0 var(--shadow);
+      transition-duration: 200ms;
+    }
+
+    label:hover {
+      transform: scale(120%);
+    }
+
+    h1 {
+      margin-bottom: -10px;
+    }
+
+    :root {
+      --shadow: rgb(144, 207, 170);
+    }
+  </style> -->
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Autosend (Beta) - Sharefy</title>
+    <script
+      data-ad-client="ca-pub-1577490559474635"
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+    ></script>
+  </head>
+
+  <link rel="stylesheet" href="https://studio.aylias.me/schemes.css" />
+
+  <body class="blue-theme">
+    <h1 id="sharefy">Sharefy</h1>
+
+    <h1 id="url" href="/"></h1>
+    <br />
+    <br />
+    <button class="copy" onclick="copy()" id="copy">Copy</button>
+    <br />
+    <form
+      class="box"
+      method="post"
+      action="/uploadAndSend"
+      enctype="multipart/form-data"
+      id="form"
+    >
+      <label for="name"
+        >Name
+        <input type="text" name="name" id="name" />
+      </label>
+      <br />
+      <br />
+      <label for="target"
+        >Send to
+        <input type="text" name="target" id="target" />
+      </label>
+      <br />
+      <br />
+      <div class="box__input">
+        <label for="file"
+          ><strong>Choose a file</strong
+          ><input class="file" type="file" name="uploaded" id="file" single
+        /></label>
+        <button class="submit" type="submit" id="submit">Upload</button>
+      </div>
+    </form>
+
+    <button class="copy" id="another"><a href="/">Do Another</a></button>
+  </body>
+
+  <script>
+    const input = document.getElementById("file");
+
+    input.addEventListener("change", (event) => {
+      const target = event.target;
+      if (target.files && target.files[0]) {
+        const maxAllowedSize = 10 * 1024 * 1024;
+        if (target.files[0].size > maxAllowedSize) {
+          // Here you can ask your users to load correct file
+          alert("File is too large!");
+          target.value = "";
+        } else {
+          document.getElementById("submit").click();
+        }
+      }
+    });
+
+    const queryString = window.location.search.replace("?", "");
+    if (queryString != "") {
+      if (queryString == "undefined") {
+        document.getElementById("url").innerHTML =
+          "Too many files are being processed right now. Please try again later!";
+        document.getElementById("form").classList.add("copy");
+        document.getElementById("sharefy").classList.add("copy");
+      } else {
+        document.getElementById("url").innerHTML = "Your URL is ready!";
+        document.getElementById("another").classList.remove("copy");
+        document.getElementById("copy").classList.remove("copy");
+        document.getElementById("form").classList.add("copy");
+        document.getElementById("sharefy").classList.add("copy");
+      }
+    }
+
+    function copy() {
+      function copyToClipboard(content) {
+        navigator.clipboard
+          .writeText(content)
+          .then(() => {
+            console.log("Text copied to clipboard...");
+          })
+          .catch((err) => {
+            console.log("Something went wrong", err);
+          });
+      }
+
+      const queryString = window.location.search.replace("?", "");
+      console.log(queryString);
+      if (queryString != "") {
+        const url = "https://sharefy.app/" + queryString;
+        copyToClipboard(url);
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-image: var(--bg-gradient);
+      height: max(100%, 100vh);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-family: "Lato", sans-serif;
+      margin: 0;
+    }
+
+    button {
+      padding: 10px 15px;
+      background-color: #fff;
+      border-radius: 15px;
+      border-style: solid;
+      border-width: 1px;
+      box-shadow: 0 10px 10px 0 var(--shadow);
+      transition-duration: 200ms;
+      /* margin-bottom: -10px; */
+    }
+
+    button a {
+      color: black;
+      text-decoration: none;
+      font-family: "Lato", sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    button:hover {
+      transform: scale(120%);
+    }
+
+    .copy {
+      display: none;
+    }
+
+    input[type="file"],
+    .submit {
+      display: none;
+    }
+
+    label {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      display: inline-block;
+      padding: 6px 12px;
+      cursor: pointer;
+      border-radius: 15px;
+      box-shadow: 0 10px 10px 0 var(--shadow);
+      transition-duration: 200ms;
+    }
+
+    label:hover {
+      transform: scale(120%);
+    }
+
+    h1 {
+      margin-bottom: -10px;
+    }
+  </style>
+</html>

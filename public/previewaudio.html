@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Preview File</title>
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <link
+      id="css"
+      rel="stylesheet"
+      type="text/css"
+      href="style.css"
+      media="all"
+    />
+  </head>
+  <body>
+    <audio controls id="preview">
+      <source src="/notyet" id="preview1" type="audio/mp3" />
+      Your browser does not support the audio element.
+    </audio>
+
+    <br />
+
+    <button><a href="/dldldl" id="download">Download</a></button>
+    <br />
+    <button><a href="/">Home</a></button>
+  </body>
+
+  <script>
+    const queryString = window.location.search.replace("?", "").split(":");
+    var link = "/dl?id=" + queryString[0];
+
+    $("#preview1").attr("src", link);
+    $("#preview1").attr("type", queryString[1]);
+    $("#preview").attr("src", link);
+    $("#preview").attr("type", queryString[1]);
+    $("#download").attr("href", link);
+  </script>
+
+  <style>
+    img {
+      width: 500px;
+    }
+  </style>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Preview File</title>
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <link
+      id="css"
+      rel="stylesheet"
+      type="text/css"
+      href="style.css"
+      media="all"
+    />
+  </head>
+  <body>
+    <div id="preview"></div>
+
+    <br />
+
+    <button><a href="/dldldl" id="download">Download</a></button>
+    <br />
+    <button><a href="/">Home</a></button>
+  </body>
+
+  <script>
+    const queryString = window.location.search.replace("?", "");
+
+    var link = "/dl?id=" + queryString;
+
+    // fetch the txt file from the link
+    fetch(link)
+      .then((response) => response.text())
+      .then((val) => {
+        var lines = val.split("\n");
+
+        lines.forEach((text) => {
+          // create a new div with the text
+          var div = document.createElement("p");
+
+          div.classList.add("preview");
+
+          // if (text.startsWith(">")) {
+          //   div.classList.add("bold");
+          //   text = text.slice(1);
+          //   console.log(text);
+          // }
+
+          div.innerHTML = text;
+          // append the div to the preview div
+          document.getElementById("preview").appendChild(div);
+        });
+      });
+  </script>
+</html>

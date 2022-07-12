@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+
+    <link rel="stylesheet" href="/style.css" />
+
+    <script>
+      function submit() {}
+    </script>
+  </head>
+
+  <body>
+    <form action="/account/validate">
+      <label for="email">
+        Email:
+        <input type="email" name="email" placeholder="Email" required />
+      </label>
+      <br />
+      <br />
+      <label for="password">
+        Password:
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          required
+        />
+      </label>
+      <br />
+      <br />
+      <label for="signup">
+        <input
+          type="radio"
+          name="upin"
+          id="signup"
+          value="Sign Up"
+          required
+          checked
+        />
+        Sign up
+      </label>
+      <label for="signin">
+        <input type="radio" name="upin" id="signin" value="Sign In" required />
+        Sign in
+      </label>
+      <br />
+      <br />
+      <input
+        type="submit"
+        value="Submit"
+        style="display: none; width: 0px; height: 0px"
+        id="submit"
+      />
+      <button onclick=" $('#submit').click();">
+        <a href="javascript:void(0)">Submit</a>
+      </button>
+    </form>
+  </body>
+</html>

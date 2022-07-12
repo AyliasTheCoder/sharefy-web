@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Preview File</title>
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <link
+      id="css"
+      rel="stylesheet"
+      type="text/css"
+      href="style.css"
+      media="all"
+    />
+  </head>
+  <body>
+    <img src="/notyet" alt="" id="preview" />
+
+    <br />
+
+    <button><a href="/dldldl" id="download">Download</a></button>
+    <br />
+    <button><a href="/">Home</a></button>
+  </body>
+
+  <script>
+    const queryString = window.location.search.replace("?", "");
+    var link = "/dl?id=" + queryString;
+
+    $("#preview").attr("src", link);
+    $("#download").attr("href", link);
+  </script>
+
+  <style>
+    img {
+      width: 500px;
+    }
+  </style>
+</html>

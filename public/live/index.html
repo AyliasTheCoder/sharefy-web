@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live Sharing</title>
+
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+
+    <link
+      id="css"
+      rel="stylesheet"
+      type="text/css"
+      href="/style.css"
+      media="all"
+    />
+  </head>
+  <body>
+    <form action="/live/session" id="dl" method="post">
+      <label for="name">
+        Name:
+        <input
+          type="text"
+          name="name"
+          id="name"
+          minlength="2"
+          maxlength="30"
+          required
+        />
+      </label>
+
+      <label for="id">
+        Session ID:
+        <input
+          class="file"
+          type="number"
+          name="id"
+          id="ididid"
+          max="9999"
+          min="1000"
+          required
+        />
+      </label>
+
+      <button class="submit" type="submit" id="join">Upload</button>
+    </form>
+    <br /><br />
+    <button onclick="join()">
+      <a href="javascript:void(0)">Join</a>
+    </button>
+  </body>
+
+  <script>
+    function join() {
+      $("#join").click();
+    }
+  </script>
+</html>
